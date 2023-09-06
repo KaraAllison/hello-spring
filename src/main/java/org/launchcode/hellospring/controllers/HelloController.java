@@ -33,7 +33,7 @@ public class HelloController {
 
     @RequestMapping(value="hello",method = RequestMethod.POST)
     public String helloPost(@RequestParam String name, @RequestParam String language) {
-        if (name == null || name == "") {
+        if (name == null || name.isEmpty()) {
             name = "World";
         }
         return "<em><font color='purple'>" +
