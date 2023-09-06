@@ -15,6 +15,32 @@ public class HelloController {
 //        return "Hello, Spring!";
 //    }
 
+    public static String createMessage(String name, String language) {
+        if (language.equals("English")) {
+            return "Hello, " + name + "!";
+        } else if (language.equals("Spanish")) {
+            return "¡Hola " + name + "!";
+        } else if (language.equals("French")) {
+            return "Bonjour " + name + "!";
+        } else if (language.equals("Italian")) {
+            return "Ciao, " + name + "!";
+        } else if (language.equals("German")) {
+            return "Hallo, " + name + "!";
+        } else {
+            return "Greetings" + name + "!";
+        }
+    }
+
+    @RequestMapping(value="hello",method = RequestMethod.POST)
+    public String helloPost(@RequestParam String name, @RequestParam String language) {
+        if (name == null || name == "") {
+            name = "World";
+        }
+        return "<em><font color='purple'>" +
+                createMessage(name, language) +
+                "</color></em>";
+    }
+
     @GetMapping("goodbye")
     public String goodbye() {
         return "Goodbye, Spring!";
@@ -37,8 +63,15 @@ public class HelloController {
     public String helloForm() {
         return "<html>" +
                 "<body>" +
-                "<form action='hello'>" +
+                "<form action='hello' method='post'>" +
                 "<input type='text' name='name'>" +
+                "<select name='language'>" +
+                "<option value='English'>English</option>" +
+                "<option value='Spanish'>Spanish</option>" +
+                "<option value='French'>French</option>" +
+                "<option value='Italian'>Italian</option>" +
+                "<option value='German'>German</option>" +
+                "</select>" +
                 "<input type='submit' value='Greet me!'>" +
                 "</form>" +
                 "</body>" +
